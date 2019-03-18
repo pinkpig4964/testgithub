@@ -15,7 +15,20 @@ int main(int argc, char *argv[])
 	char buff[BUF_SIZE];
 
 	fd1=open(argv[1],O_RDONLY);	//open read file
-	fd2=open(argv[2],O_WRONLY|O_CREAT|O_TRUNC);//open write file
+	if(fd1 ==-1)
+	{
+		printf("%sdebug error\n",argv[1]);
+		return 0;
+	}
+
+	fd2=open(argv[2],O_WRONLY|O_CREAT|O_TRUNC,0644);//open write file
+	
+	if(fd2==-1)
+	{
+
+		printf("%sdebug error\n",argv[2]);
+		return 0;
+	}
 	//read & write
 	while(len=read(fd1,buff,sizeof(buff))>0)
 	{

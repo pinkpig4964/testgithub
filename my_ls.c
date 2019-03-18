@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
+
 void access_perm(char *perm, mode_t mode)
 {
 	int i;
@@ -36,15 +39,11 @@ int main(int argc, char *argv[])
 	struct dirent *dent;
 	char perm[11];
 	char pathname[80];
-
+	struct tm *tm;
+	char timestr[20];
 	if(argc <2) exit(1);
-
 	stat(argv[1] , &statbuf);
-	if(!S_ISDIR(statbuf.st_mode))
-	{
-		fprintf(stderr," %s is not directory\n",argv[1]);
-		exit(1);
-	}
+	printf("%s\n",argv[2]); 
 	if((dp = opendir(argv[1])) == NULL){
 			perror("ERROR:");
 			exit(1);
@@ -55,7 +54,12 @@ int main(int argc, char *argv[])
 			sprintf(pathname, "%s %s", argv[1], dent->d_name);
 			lstat(pathname, &statbuf);
 			access_perm(perm, statbuf.st_mode);
-			printf("%s %8ld %s \n", perm, statbuf.st_size, dent->d_name);
+			tm = ctime(&statbuf.st_ctime);
+			strftime(timestr,sizeof(timestr),"%m month %d %H:%M", tm);
+			printf("%s %8ld %s ", perm, statbuf.st_size, dent->d_name);
+			printf("%s ",timestr);
+			
+			printf("%s\n ",dent->d_name);
 	}
 	closedir(dp);
 	return 0;
