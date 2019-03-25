@@ -100,7 +100,7 @@ static void sig_quit(int signo)
 }
 static void sighandler(int signo)
 {
-		signal(signo, SIG_DFL);
+		signal(SIGINT, signo);
 		whatchild(signo);
 }
 void whatchild(int signo)
