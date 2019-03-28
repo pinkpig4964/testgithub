@@ -24,7 +24,7 @@ void* t_function(void *data)
 		printf("\n");
 		sleep(1);
 
-		return (void*)(argData*argData);
+		return (void*)(result);
 
 }
 
@@ -33,7 +33,7 @@ int main(void)
 		pthread_t p_thread;
 		int ret;
 		int a=1;
-		int status;
+		long long status;
 
 		struct timeval startTime, endTime;
 		double diffTime;
@@ -47,5 +47,6 @@ int main(void)
 		gettimeofday(&endTime, NULL);
 		diffTime = ( endTime.tv_sec - startTime.tv_sec ) + (( endTime.tv_usec - startTime.tv_usec ) / 1000000.0);
 		printf("%f s\n", diffTime);
-		printf("thread_join1:%d\n", status);
+		printf("thread_join1:%lld\n", status);
+		return 0;
 }
