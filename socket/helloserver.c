@@ -32,8 +32,8 @@ int main(int argc, char* argv[])
 	//STEP 1. socket을 생성한다. file의  open과 동일
 	// PF_INET : IP v4
 	// SOCK_STREAM : TCP
-	sock = socket(PF_INET, SOCK_STREAM, 0);
-	if (sock == -1)
+	serv_sock = socket(PF_INET, SOCK_STREAM, 0);
+	if (serv_sock == -1)
 		error_handling("socket() error");
 
 	//STEP 2. 접속할 서버의 IP주소, 포트번호, 프로토콜을 정의
@@ -46,7 +46,7 @@ int main(int argc, char* argv[])
 	//STEP 3. BIND : 서버의 포트 설정
 	if(bind(serv_sock, (struct sockaddr*)&serv_addr, sizeof(serv_addr))==-1)
 	{
-		errorhandling("bind() error");
+		error_handling("bind() error");
 	}
 	//STEP 4.listen : 5의 의미는 동시접속을 처리할 수 있는 버퍼의 크기. 
 	if(listen(serv_sock,5) ==-1)
@@ -61,7 +61,8 @@ int main(int argc, char* argv[])
 
 	// STEP 5. 데이터 송신
 	write(clnt_sock, message, sizeof(message));
-
+	//클라이언트보다 늦게 소켓을 종료하기 위해 sleep!
+	sleep(2);
 	// STEP 6. 소켓 종료
 	close(clnt_sock);
 	close(serv_sock);

@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
 	if(sock == -1)
 	{
-			error_handling("socket error");
+			errorhandling("socket error");
 	}
 
 	//STEP 2 :접속할 서버의 ip주소, 포트번호, 프로토콜을 정의
@@ -42,7 +42,7 @@ int main(int argc, char* argv[])
 	serv_addr.sin_port=htons(atoi(argv[2]));
 
 	//STEP 3 : 접속 요청-접속할 때의 주소 포트
-	if(connet(sock, (struct sockaddr*)&serv_addr,sizeof(serv_addr))==-1)
+	if(connect(sock, (struct sockaddr*)&serv_addr,sizeof(serv_addr))==-1)
 	{
 		errorhandling("connect error");
 	}
