@@ -41,7 +41,7 @@ int main(int argc, char* argv[])
 	serv_addr.sin_addr.s_addr = inet_addr(argv[1]);
 	serv_addr.sin_port=htons(atoi(argv[2]));
 
-	//STEP 3 : 접속 요청
+	//STEP 3 : 접속 요청-접속할 때의 주소 포트
 	if(connet(sock, (struct sockaddr*)&serv_addr,sizeof(serv_addr))==-1)
 	{
 		errorhandling("connect error");
